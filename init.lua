@@ -151,10 +151,17 @@ require('lazy').setup({
 
   {
     'catppuccin/nvim',
+    name="catppuccin",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
+      vim.cmd.colorscheme 'catppuccin'
     end,
+    opts = {
+      flavour = "mocha",
+      integrations = {
+        treesitter = true,
+      },
+    },
   },
 
   {
@@ -164,7 +171,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        theme = 'catppuccin',
         component_separators = '|',
         section_separators = '',
       },
@@ -212,7 +219,15 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
+  
+  {
+    'norcalli/nvim-colorizer.lua',
+    opts = {
+      css = {
+        hsl_fn = true,
+      },
+    },
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -237,6 +252,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -265,6 +281,12 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+
+-- tab length
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.smarttab = true
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true

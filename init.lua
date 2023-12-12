@@ -228,6 +228,23 @@ require('lazy').setup({
       },
     },
   },
+
+  {
+    'Pocco81/true-zen.nvim',
+    opts = {
+      modes = { 
+        ataraxis = {
+          padding = {
+            left = 60,
+            right = 60,
+          },
+        },
+      },
+      integrations = {
+        lualine = true,
+      },
+    },
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -291,8 +308,12 @@ vim.o.smarttab = true
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+-- wrap
+vim.o.linebreak = true
+
 -- [[ Basic Keymaps ]]
 
+vim.api.nvim_set_keymap("n", "<leader>za", ":TZAtaraxis<CR>", {})
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })

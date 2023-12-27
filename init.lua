@@ -597,7 +597,30 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
+vim.g.cmptoggle = true
+vim.keymap.set(
+  'n',
+  '<Leader>cc',
+  function ()
+    vim.g.cmptoggle = not vim.g.cmptoggle
+    local status
+
+    if vim.g.cmptoggle then
+      status = 'ENABLED'
+    else
+      status = 'DISABLED'
+    end
+
+    print('nvim-cmp', status)
+  end,
+  { desc = 'toggle nvim-cmp' }
+)
+
 cmp.setup {
+  enabled = function()
+    return vim.g.cmptoggle
+  end,
+
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)

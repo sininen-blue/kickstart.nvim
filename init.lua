@@ -245,6 +245,10 @@ require('lazy').setup({
       },
     },
   },
+
+  {
+    'mfussenegger/nvim-lint',
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -479,6 +483,17 @@ vim.defer_fn(function()
     },
   }
 end, 0)
+
+-- [[ Configure Linter ]]
+require('lint').linters_by_ft = {
+  htmldjango = {'djlint',}
+}
+
+vim.api.nvim_create_autocmd({ "VimEnter", "BufNew","BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.

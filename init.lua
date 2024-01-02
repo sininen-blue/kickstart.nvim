@@ -109,7 +109,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -151,7 +151,7 @@ require('lazy').setup({
 
   {
     'catppuccin/nvim',
-    name="catppuccin",
+    name = "catppuccin",
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'catppuccin'
@@ -219,7 +219,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -285,6 +285,20 @@ vim.o.termguicolors = true
 
 -- wrap
 vim.o.linebreak = true
+
+-- [[ Writer Mode ]]
+local writer_mode = vim.api.nvim_create_augroup("WriterMode", { clear = true })
+vim.api.nvim_create_autocmd({ "VimEnter", "BufNew" }, {
+  group = writer_mode,
+  pattern = { "*.md" },
+  callback = function()
+    vim.g.cmptoggle = not vim.g.cmptoggle
+    require("true-zen.ataraxis").toggle()
+    vim.o.spell = true
+  end,
+})
+
+vim.api.nvim_set_keymap("n", "<leader>zz", ":TZAtaraxis<CR>", {})
 
 -- [[ Basic Keymaps ]]
 
@@ -359,7 +373,7 @@ local function live_grep_git_root()
   local git_root = find_git_root()
   if git_root then
     require('telescope.builtin').live_grep({
-      search_dirs = {git_root},
+      search_dirs = { git_root },
     })
   end
 end
@@ -457,7 +471,7 @@ end, 0)
 
 -- [[ Configure Linter ]]
 require('lint').linters_by_ft = {
-  htmldjango = {'djlint',}
+  htmldjango = { 'djlint', }
 }
 
 vim.api.nvim_create_autocmd({ "VimEnter", "BufNew", "BufWritePost", "InsertLeave" }, {
@@ -626,7 +640,7 @@ vim.g.cmptoggle = true
 vim.keymap.set(
   'n',
   '<Leader>cc',
-  function ()
+  function()
     vim.g.cmptoggle = not vim.g.cmptoggle
     local status
 

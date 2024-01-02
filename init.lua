@@ -220,35 +220,6 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
   
-  {
-    'norcalli/nvim-colorizer.lua',
-    opts = {
-      css = {
-        hsl_fn = true,
-      },
-    },
-  },
-
-  {
-    'Pocco81/true-zen.nvim',
-    opts = {
-      modes = { 
-        ataraxis = {
-          padding = {
-            left = 60,
-            right = 60,
-          },
-        },
-      },
-      integrations = {
-        lualine = true,
-      },
-    },
-  },
-
-  {
-    'mfussenegger/nvim-lint',
-  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -260,8 +231,8 @@ require('lazy').setup({
   --    up-to-date with whatever is in the kickstart repo.
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  --    For additional information see: https://github.com//lazy.nvim#-structuring-your-plugins
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -489,11 +460,50 @@ require('lint').linters_by_ft = {
   htmldjango = {'djlint',}
 }
 
-vim.api.nvim_create_autocmd({ "VimEnter", "BufNew","BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "VimEnter", "BufNew", "BufWritePost", "InsertLeave" }, {
   callback = function()
     require("lint").try_lint()
   end,
 })
+
+-- [[ Configure Formatter ]]
+local util = require "formatter.util"
+require("formatter").setup {
+  logging = true,
+  log_level = vim.log.levels.WARN,
+
+  filetype = {
+    htmldjango = {
+      function()
+        return {
+          exe = vim.fn.stdpath('data') .. '/mason/bin/djlint',
+          args = {
+            "-",
+            "--reformat",
+            "--quiet",
+            "--preserve-blank-lines",
+          },
+          stdin = true,
+        }
+      end,
+      function()
+        return {
+          exe = vim.fn.stdpath('data') .. '/mason/bin/rustywind',
+          args = {
+            "--write",
+            "--quiet",
+            util.escape_path(util.get_current_buffer_file_path()),
+          },
+          stdin = false,
+        }
+      end,
+    }
+  },
+
+  ["*"] = {
+    require("formatter.filetypes.any").remove_trailing_whitespace
+  },
+}
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.

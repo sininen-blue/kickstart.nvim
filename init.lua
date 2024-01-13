@@ -284,17 +284,19 @@ vim.o.smarttab = true
 vim.o.termguicolors = true
 
 -- wrap
-vim.o.linebreak = true
+vim.o.wrap = false
 
 -- [[ Writer Mode ]]
 local writer_mode = vim.api.nvim_create_augroup("WriterMode", { clear = true })
 vim.api.nvim_create_autocmd({ "VimEnter", "BufNew" }, {
   group = writer_mode,
-  pattern = { "*.md" },
+  pattern = { "*.md", "*.txt" },
   callback = function()
     vim.g.cmptoggle = not vim.g.cmptoggle
     require("true-zen.ataraxis").toggle()
     vim.o.spell = true
+    vim.o.wrap = true
+    vim.o.linebreak = true
   end,
 })
 

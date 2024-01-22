@@ -473,7 +473,8 @@ end, 0)
 
 -- [[ Configure Linter ]]
 require('lint').linters_by_ft = {
-  htmldjango = { 'djlint', }
+  htmldjango = { 'djlint', },
+  html = { 'htmlhint', },
 }
 
 vim.api.nvim_create_autocmd({ "VimEnter", "BufNew", "BufWritePost", "InsertLeave" }, {

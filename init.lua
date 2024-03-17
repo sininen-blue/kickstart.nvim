@@ -303,6 +303,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "BufNew" }, {
 vim.api.nvim_set_keymap("n", "<leader>zz", ":TZAtaraxis<CR>", {})
 
 -- [[ Basic Keymaps ]]
+vim.api.nvim_set_keymap("n", "<leader>ee", "oif err != nil {<CR>}<Esc>Olog.Fatal(err)<Esc>", {})
 
 vim.api.nvim_set_keymap("n", "<leader>za", ":TZAtaraxis<CR>", {})
 -- Keymaps for better default experience
@@ -334,6 +335,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    file_ignore_patterns = {
+      "static",
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -474,6 +478,7 @@ end, 0)
 -- [[ Configure Linter ]]
 require('lint').linters_by_ft = {
   htmldjango = { 'djlint', },
+  gdscript = { 'gdlint', },
 }
 
 vim.api.nvim_create_autocmd({ "VimEnter", "BufNew", "BufWritePost", "InsertLeave" }, {

@@ -33,6 +33,7 @@ return {
         'mfussenegger/nvim-lint',
     },
     { 'mhartington/formatter.nvim', },
+    { 'machakann/vim-sandwich', },
 }
 
 -- vim: ts=2 sts=2 sw=2 et

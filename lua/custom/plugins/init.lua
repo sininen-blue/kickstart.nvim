@@ -21,8 +21,22 @@ return {
         },
       },
       on_open = function()
-        vim.cmd.colorscheme 'tokyonight-night'
+        vim.cmd.colorscheme 'catppuccin-mocha'
+        vim.opt.wrap = true
+        vim.opt.linebreak = true
       end,
     },
+  },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+  },
+  {
+    'brenoprata10/nvim-highlight-colors',
+    init = function()
+      require('nvim-highlight-colors').setup {}
+    end,
   },
 }

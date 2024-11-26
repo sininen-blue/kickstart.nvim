@@ -21,9 +21,12 @@ return {
         },
       },
       on_open = function()
-        vim.cmd.colorscheme 'catppuccin-mocha'
         vim.opt.wrap = true
         vim.opt.linebreak = true
+        vim.opt.spell = true
+        vim.opt.spelllang = { 'en_us' }
+
+        vim.cmd.colorscheme 'catppuccin-mocha'
       end,
     },
   },
@@ -41,9 +44,40 @@ return {
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    opts = {},
+    opts = {
+      heading = {
+        sign = false,
+        backgrounds = {
+          'VisualNC',
+          'VisualNC',
+          'VisualNC',
+          'VisualNC',
+          'VisualNC',
+          'VisualNC',
+        },
+      },
+    },
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+  },
+
+  {
+    'fraso-dev/nvim-listchars',
+    config = function()
+      require('nvim-listchars').setup {
+        save_state = false,
+        listchars = {
+          space = '·',
+          trail = '-',
+          eol = '↲',
+          tab = '» ',
+        },
+        exclude_filetypes = {
+          'markdown',
+        },
+        lighten_step = 10,
+      }
+    end,
   },
 }

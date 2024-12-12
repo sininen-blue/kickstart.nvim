@@ -42,30 +42,15 @@ return {
       require('nvim-highlight-colors').setup {}
     end,
   },
-  -- {
-  --   'MeanderingProgrammer/render-markdown.nvim',
-  --   opts = {
-  --     heading = {
-  --       sign = false,
-  --       backgrounds = {
-  --         'VisualNC',
-  --         'VisualNC',
-  --         'VisualNC',
-  --         'VisualNC',
-  --         'VisualNC',
-  --         'VisualNC',
-  --       },
-  --     },
-  --   },
-  --   dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
-  --   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-  --   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
-  -- },
 
   {
     'OXY2DEV/markview.nvim',
     lazy = false, -- Recommended
-    -- ft = "markdown" -- If you decide to lazy-load anyway
+    -- stylua: ignore
+    keys = {
+      { "<leader>wm", function() vim.cmd("Markview") end, desc = "Toggle Markview" },
+      { "<leader>ws", function() vim.cmd("Markview splitToggle") end, desc = "Toggle markview split toggle" },
+    },
 
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
@@ -85,14 +70,14 @@ return {
     event = 'VeryLazy',
     ---@type Flash.Config
     opts = {},
-  -- stylua: ignore
-  keys = {
-    { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-  },
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
   },
 
   {
@@ -104,16 +89,13 @@ return {
       {'<leader>gl', function() require("snacks").lazygit.open() end, desc = 'Lazygit'},
     },
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
       dashboard = { enabled = true },
       indent = { enabled = true },
       lazygit = { enabled = true },
       scroll = {
         enabled = true,
         animate = {
-          easing = 'inOutQuad',
+          easing = 'outQuint',
         },
       },
     },

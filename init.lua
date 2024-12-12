@@ -820,16 +820,16 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-          {
-            name = 'spell',
-            option = {
-              keep_all_entries = false,
-              enable_in_context = function()
-                return true
-              end,
-              preselect_correct_word = true,
-            },
-          },
+          -- {
+          --   name = 'spell',
+          --   option = {
+          --     keep_all_entries = false,
+          --     enable_in_context = function()
+          --       return require('cmp.config.context').in_treesitter_capture 'spell'
+          --     end,
+          --     preselect_correct_word = true,
+          --   },
+          -- },
         },
       }
     end,
@@ -860,14 +860,6 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
-      require('mini.indentscope').setup {
-        options = {
-          border = 'top',
-          try_as_border = true,
-        },
-        symbol = '',
-      }
-
       require('mini.align').setup()
       -- Better Around/Inside textobjects
       --
@@ -940,7 +932,7 @@ require('lazy').setup({
   --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps

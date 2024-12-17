@@ -620,6 +620,12 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        templ = {},
+        html = {
+          init_options = {
+            provideFormatter = false,
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -861,6 +867,7 @@ require('lazy').setup({
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      require('mini.sessions').setup()
       require('mini.align').setup()
       -- Better Around/Inside textobjects
       --

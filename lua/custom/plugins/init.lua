@@ -25,8 +25,6 @@ return {
         vim.opt.linebreak = true
         vim.opt.spell = true
         vim.opt.spelllang = { 'en_us' }
-
-        vim.cmd.colorscheme 'catppuccin-mocha'
       end,
     },
   },
@@ -37,11 +35,9 @@ return {
         ['g?'] = { 'actions.show_help', mode = 'n' },
         ['<CR>'] = 'actions.select',
         ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
-        -- ['<C-h>'] = { 'actions.select', opts = { horizontal = true } },
         ['<C-t>'] = { 'actions.select', opts = { tab = true } },
         ['<C-p>'] = 'actions.preview',
         ['<C-c>'] = { 'actions.close', mode = 'n' },
-        -- ['<C-l>'] = 'actions.refresh',
         ['-'] = { 'actions.parent', mode = 'n' },
         ['_'] = { 'actions.open_cwd', mode = 'n' },
         ['`'] = { 'actions.cd', mode = 'n' },
@@ -69,7 +65,7 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>wm", function() vim.cmd("Markview") end, desc = "Toggle Markview" },
-      { "<leader>ws", function() vim.cmd("Markview splitToggle") end, desc = "Toggle markview split toggle" },
+      { "<leader>wv", function() vim.cmd("Markview splitToggle") end, desc = "Toggle markview vertical split toggle" },
     },
 
     dependencies = {
@@ -142,26 +138,6 @@ return {
           easing = 'outQuint',
         },
       },
-    },
-  },
-
-  { 'f3fora/cmp-spell' },
-  {
-    'fraso-dev/nvim-listchars',
-    event = 'BufEnter',
-    opts = {
-      save_state = false,
-      listchars = {
-        trail = '-',
-        eol = '↲',
-        tab = '» ',
-        space = '·',
-      },
-      notifications = true,
-      exclude_filetypes = {
-        'markdown',
-      },
-      lighten_step = 10,
     },
   },
 }

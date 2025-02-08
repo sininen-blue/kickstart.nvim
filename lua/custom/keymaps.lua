@@ -3,6 +3,17 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- writer mode
+vim.keymap.set('n', '<leader>wl', function()
+  local lsp_active = vim.lsp.get_clients()
+  if lsp_active then
+    vim.cmd 'LspStop'
+    print 'Lsp stopped'
+  else
+    vim.cmd 'LspStart'
+    print 'Lsp started'
+  end
+end, { desc = 'Toggle lsp' })
+
 vim.keymap.set('n', '<leader>ww', function()
   require('zen-mode').toggle {}
 end, { desc = 'Toggle Zen Mode' })

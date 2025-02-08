@@ -78,9 +78,11 @@ return {
     },
 
     opts = {
-      list_items = {
-        indent_size = 1,
-        shift_width = 1,
+      markdown = {
+        list_items = {
+          indent_size = 1,
+          shift_width = 1,
+        },
       },
     },
   },

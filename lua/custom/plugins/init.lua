@@ -129,15 +129,8 @@ return {
           { section = 'startup' },
         },
       },
-      quickfile = { enabled = true },
       indent = { enabled = true },
       lazygit = { enabled = true },
-      scroll = {
-        enabled = true,
-        animate = {
-          easing = 'outQuint',
-        },
-      },
     },
   },
 }

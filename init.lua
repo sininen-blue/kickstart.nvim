@@ -502,6 +502,23 @@ require('lazy').setup({
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+    config = function(_, opts)
+      vim.filetype.add {
+        pattern = {
+          ['.*%.blade%.php'] = 'blade',
+        },
+      }
+
+      require('nvim-treesitter.configs').setup(opts)
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = 'https://github.com/EmranMR/tree-sitter-blade',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+        filetype = 'blade',
+      }
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects

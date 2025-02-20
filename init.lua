@@ -379,6 +379,9 @@ require('lazy').setup({
           --   end,
           -- },
         },
+        config = function()
+          require('luasnip.loaders.from_lua').lazy_load { paths = './lua/custom/luasnip' }
+        end,
       },
       'saadparwaiz1/cmp_luasnip',
 
@@ -449,11 +452,19 @@ require('lazy').setup({
   },
 
   {
-    'catppuccin/nvim',
+    'jesseleite/nvim-noirbuddy',
+    dependencies = {
+      { 'tjdevries/colorbuddy.nvim' },
+    },
     priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'catppuccin-mocha'
-    end,
+    lazy = false,
+    opts = {
+      colors = {
+        primary = '#e03015',
+        secondary = '#447d9e',
+        background = '#0e1012',
+      },
+    },
   },
 
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },

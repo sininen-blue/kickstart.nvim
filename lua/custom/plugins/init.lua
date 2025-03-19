@@ -37,6 +37,7 @@ return {
     opts = {
       keymaps = {
         ['g?'] = { 'actions.show_help', mode = 'n' },
+        ['gr'] = { 'actions.refresh', mode = 'n' },
         ['<CR>'] = 'actions.select',
         ['<C-s>'] = { 'actions.select', opts = { vertical = true } },
         ['<C-t>'] = { 'actions.select', opts = { tab = true } },
@@ -136,5 +137,11 @@ return {
       indent = { enabled = true },
       lazygit = { enabled = true },
     },
+  },
+  {
+    'nvzone/typr',
+    dependencies = 'nvzone/volt',
+    opts = {},
+    cmd = { 'Typr', 'TyprStats' },
   },
 }

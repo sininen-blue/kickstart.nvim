@@ -150,6 +150,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = '[S]earch [M]arks' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
       vim.keymap.set('n', '<leader>/', function()
@@ -452,19 +453,20 @@ require('lazy').setup({
   },
 
   {
-    'jesseleite/nvim-noirbuddy',
-    dependencies = {
-      { 'tjdevries/colorbuddy.nvim' },
-    },
+    'EdenEast/nightfox.nvim',
     priority = 1000,
     lazy = false,
     opts = {
-      colors = {
-        primary = '#e03015',
-        secondary = '#447d9e',
-        background = '#0e1012',
+      palettes = {
+        all = {
+          bg1 = '#0e1012',
+          red = '#f22e10',
+        },
       },
     },
+    init = function()
+      vim.cmd 'colorscheme carbonfox'
+    end,
   },
 
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },

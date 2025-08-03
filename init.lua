@@ -692,6 +692,9 @@ require('lazy').setup({
           -- But for many setups, the LSP (`ts_ls`) will work just fine
           -- ts_ls = {},
           --
+          ltex = {
+            filetypes = { 'markdown', 'tex', 'latex' },
+          },
           texlab = {
             settings = {
               texlab = {
@@ -748,6 +751,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers.mason or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'ltex-ls', -- Language server for spell checking and grammar checking
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

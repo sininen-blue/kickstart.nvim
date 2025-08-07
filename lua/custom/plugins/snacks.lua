@@ -6,8 +6,20 @@ return {
     keys = {
       -- stylua: ignore
       {'<leader>gl', function() require("snacks").lazygit.open() end, desc = 'Lazygit'},
+      -- stylua: ignore
+      {'<leader>gz', function() require("snacks").zen.zen() end, desc = 'Zen'},
     },
     opts = {
+      styles = {
+        zen = {
+          width = 90,
+          minimal = true,
+          backdrop = {
+            transparent = true,
+            blend = 40,
+          },
+        },
+      },
       dashboard = {
         enabled = true,
         preset = {
@@ -32,6 +44,12 @@ return {
       },
       indent = { enabled = true },
       lazygit = { enabled = true },
+      zen = {
+        enabled = true,
+      },
+      toggle = {
+        enabled = true,
+      },
     },
   },
 }

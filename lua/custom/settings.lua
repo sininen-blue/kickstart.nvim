@@ -13,3 +13,4 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.keymap.set('n', 'gh', vim.lsp.buf.code_action, { desc = 'Show Spelling/Grammar Suggestions' })
+vim.keymap.set('n', 'grf', vim.diagnostic.open_float, { desc = 'Show diagnostics in [f]loat' })

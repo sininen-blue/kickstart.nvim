@@ -15,7 +15,7 @@ return {
           width = 90,
           minimal = true,
           backdrop = {
-            transparent = true,
+            transparent = false,
             blend = 40,
           },
         },

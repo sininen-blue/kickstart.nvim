@@ -1,9 +1,0 @@
-; Inject JS for <script type="text/babel">...</script>
-((script_element
-   (start_tag
-	 (attribute
-	   (attribute_name) @attr_name (#eq? @attr_name "type")
-	   (quoted_attribute_value
-		 (attribute_value) @attr_value (#match? @attr_value "text/babel"))))
-   (raw_text) @injection.content)
- (#set! injection.language "javascript"))

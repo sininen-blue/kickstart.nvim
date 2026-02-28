@@ -3,6 +3,7 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		{ "mason-org/mason.nvim", opts = {} },
+		"mason-org/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		{ "j-hui/fidget.nvim", opts = {} },
 		"saghen/blink.cmp",
@@ -15,6 +16,7 @@ return {
 					mode = mode or "n"
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
+
 				map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 				map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -44,56 +46,64 @@ return {
 				end
 			end,
 		})
+
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+		---@type table<string, vim.lsp.Config>
 		local servers = {
 			-- clangd = {},
 			-- gopls = {},
 			-- pyright = {},
 			-- rust_analyzer = {},
+			-- ts_ls = {},
+
+			pylsp = {},
+			stylua = {}, -- Used to format Lua code
+
+			-- Special Lua Config, as recommended by neovim help docs
+			lua_ls = {
+				on_init = function(client)
+					if client.workspace_folders then
+						local path = client.workspace_folders[1].name
+						if
+							path ~= vim.fn.stdpath("config")
+							and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+						then
+							return
+						end
+					end
+
+					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+						runtime = {
+							version = "LuaJIT",
+							path = { "lua/?.lua", "lua/?/init.lua" },
+						},
+						workspace = {
+							checkThirdParty = false,
+							library = vim.tbl_extend("force", vim.api.nvim_get_runtime_file("", true), {
+								"${3rd}/luv/library",
+								"${3rd}/busted/library",
+							}),
+						},
+					})
+				end,
+				settings = {
+					Lua = {},
+				},
+			},
 		}
 
-		-- Ensure the servers and tools above are installed
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
-			"lua-language-server",
-			"stylua",
-			-- You can add other tools here that you want Mason to install
+			"ruff",
 		})
 
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
 		for name, server in pairs(servers) do
 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 			vim.lsp.config(name, server)
 			vim.lsp.enable(name)
 		end
-
-		vim.lsp.config("lua_ls", {
-			on_init = function(client)
-				if client.workspace_folders then
-					local path = client.workspace_folders[1].name
-					if
-						path ~= vim.fn.stdpath("config")
-						and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-					then
-						return
-					end
-				end
-
-				client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-					runtime = {
-						version = "LuaJIT",
-						path = { "lua/?.lua", "lua/?/init.lua" },
-					},
-					workspace = {
-						checkThirdParty = false,
-						library = vim.api.nvim_get_runtime_file("", true),
-					},
-				})
-			end,
-			settings = {
-				Lua = {},
-			},
-		})
-		vim.lsp.enable("lua_ls")
 	end,
 }

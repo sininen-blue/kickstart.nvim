@@ -693,6 +693,7 @@ require('lazy').setup({
           -- But for many setups, the LSP (`ts_ls`) will work just fine
           -- ts_ls = {},
           --
+          pylsp = {},
           ltex = {
             filetypes = { 'markdown', 'tex', 'latex' },
           },
@@ -812,6 +813,8 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'black' },
+        -- htmldjango = { 'djlint' },
+        css = { 'prettierd' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
@@ -1058,6 +1061,7 @@ require('lazy').setup({
 })
 
 require 'custom.settings'
+require 'custom.neovide'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

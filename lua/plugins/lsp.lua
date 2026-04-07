@@ -55,7 +55,10 @@ return {
 			-- gopls = {},
 			-- pyright = {},
 			-- rust_analyzer = {},
-			-- ts_ls = {},
+			eslint = {},
+			ts_ls = {},
+
+			intelephense = {},
 
 			pylsp = {},
 			stylua = {}, -- Used to format Lua code
